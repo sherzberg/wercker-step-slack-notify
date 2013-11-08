@@ -1,3 +1,5 @@
+[![wercker status](https://app.wercker.com/status/6077bdbf04300a6412268672fa39e71b/m "wercker status")](https://app.wercker.com/project/bykey/6077bdbf04300a6412268672fa39e71b)
+
 # slack-notify
 
 Send a message to a Slack Channel

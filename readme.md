@@ -7,8 +7,8 @@ Send a message to a Slack Channel
 ### required
 
 * `token` - Your Slack token.
-* `channel` - The channel name of the Slack Channel
-* `subdomain` - The Campfire subdomain.
+* `channel` - The channel name of the Slack Channel (without the #).
+* `subdomain` - The slack subdomain.
 
 
 Example

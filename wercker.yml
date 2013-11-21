@@ -25,7 +25,7 @@ build:
         code: |
           source ./tests/helper.sh
           export WERCKER_SLACK_NOTIFY_SUBDOMAIN="wercker"
-          export WERCKER_SLACK_NOTIFY_TOKEN="$CORRECT_SLACK_TOKENz"
+          export WERCKER_SLACK_NOTIFY_TOKEN="${CORRECT_SLACK_TOKEN}z"
           export WERCKER_SLACK_NOTIFY_CHANNEL="product"
           source ./run.sh
 

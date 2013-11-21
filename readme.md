@@ -10,6 +10,17 @@ Send a message to a Slack Channel
 * `channel` - The channel name of the Slack Channel (without the #).
 * `subdomain` - The slack subdomain.
 
+You can create a slack token by going to the account page on your slack domain:
+`<your-subdomain>.slack.com/services` and click 'add New Integration' and select
+'incoming webhooks'. Copy your token (as can be found in the example curl
+command) and don't forget to click 'Add Integration'.
+
+This token can be used directly in the wercker.yml (not
+recommended) or better: as an environment variable. You can add environment
+variables to wercker, by going to the settings tab of your application.
+In the `pipeline` section you can add environment variables. You can use
+those environment variables in the wercker.yml just as you would normally
+in a shell script (with a dollar sign in front of it).
 
 Example
 --------
@@ -51,4 +62,5 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ## 0.0.4
 - updated documentation
-- check for surplus hash in channel argument
+- check for redundant hash in channel argument
+- tests added

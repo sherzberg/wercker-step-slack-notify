@@ -2,3 +2,10 @@ box: wercker/default
 build:
   steps:
     - validate-wercker-step
+    - script:
+        name: Run the command once
+        code: |
+          export WERCKER_SLACK_NOTIFY_SUBDOMAIN="wercker"
+          export WERCKER_SLACK_NOTIFY_TOKEN="some_token"
+          export WERCKER_SLACK_NOTIFY_CHANNEL="product"
+          source ./run.sh

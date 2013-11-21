@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ ! -n "$WERCKER_SLACK_NOTIFY_SUBDOMAIN" ]; then
-error 'Please specify domain property'
+error 'Please specify the subdomain property'
   exit 1
 fi
 
@@ -11,7 +11,12 @@ error 'Please specify token property'
 fi
 
 if [ ! -n "$WERCKER_SLACK_NOTIFY_CHANNEL" ]; then
-error 'Please specify subdomain property'
+error 'Please specify a channel'
+  exit 1
+fi
+
+if [[ ! $WERCKER_SLACK_NOTIFY_CHANNEL == \#* ]]; then
+error "Please specify the channel without the '#'"
   exit 1
 fi
 

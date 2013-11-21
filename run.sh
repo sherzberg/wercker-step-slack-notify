@@ -1,23 +1,22 @@
 #!/bin/bash
 
+
 if [ ! -n "$WERCKER_SLACK_NOTIFY_SUBDOMAIN" ]; then
-error 'Please specify the subdomain property'
-  exit 1
+# fatal causes the wercker interface to display the error without the need to
+# expand the step
+  fatal 'Please specify the subdomain property'
 fi
 
 if [ ! -n "$WERCKER_SLACK_NOTIFY_TOKEN" ]; then
-error 'Please specify token property'
-  exit 1
+  fatal 'Please specify token property'
 fi
 
 if [ ! -n "$WERCKER_SLACK_NOTIFY_CHANNEL" ]; then
-error 'Please specify a channel'
-  exit 1
+  fatal 'Please specify a channel'
 fi
 
 if [[ $WERCKER_SLACK_NOTIFY_CHANNEL == \#* ]]; then
-error "Please specify the channel without the '#'"
-  exit 1
+  fatal "Please specify the channel without the '#'"
 fi
 
 if [ ! -n "$WERCKER_SLACK_NOTIFY_FAILED_MESSAGE" ]; then
@@ -52,4 +51,29 @@ fi
 
 json="{\"channel\": \"#$WERCKER_SLACK_NOTIFY_CHANNEL\", \"text\": \"$WERCKER_SLACK_NOTIFY_MESSAGE\"}"
 
-curl -s -d "payload=$json" "https://$WERCKER_SLACK_NOTIFY_SUBDOMAIN.slack.com/services/hooks/incoming-webhook?token=$WERCKER_SLACK_NOTIFY_TOKEN"
+RESULT=`curl -s -d "payload=$json" "https://$WERCKER_SLACK_NOTIFY_SUBDOMAIN.slack.com/services/hooks/incoming-webhook?token=$WERCKER_SLACK_NOTIFY_TOKEN" --output $WERCKER_STEP_TEMP/result.txt`
+
+if [ "$RESULT" = "500" ]; then
+  if grep -Fqx "No token" $WERCKER_STEP_TEMP/result.txt; then
+    fatal "Specified token is invalid."
+  fi
+
+  if grep -Fqx "No hooks" $WERCKER_STEP_TEMP/result.txt; then
+    fatal "No hook can be found for specified subdomain/token"
+  fi
+
+  if grep -Fqx "Invalid channel specified" $WERCKER_STEP_TEMP/result.txt; then
+    fatal "Could not find specified channel for subdomain/token."
+  fi
+
+  if grep -Fqx "No text specified" $WERCKER_STEP_TEMP/result.txt; then
+    fatal "No text specified."
+  fi
+
+  # Unhandled error
+  fatal <$WERCKER_STEP_TEMP/result.txt
+fi
+
+if [ "$RESULT" = "404" ]; then
+  fatal "Subdomain not found."
+fi

@@ -5,6 +5,11 @@ build:
     - script:
         name: Run the command once
         code: |
+          function fatal() {
+            echo "fatal called with : $1"
+            exit
+          }
+
           export WERCKER_SLACK_NOTIFY_SUBDOMAIN="wercker"
           export WERCKER_SLACK_NOTIFY_TOKEN=$CORRECT_SLACK_TOKEN
           export WERCKER_SLACK_NOTIFY_CHANNEL="product"

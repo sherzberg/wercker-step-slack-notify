@@ -75,5 +75,5 @@ if [ "$RESULT" = "500" ]; then
 fi
 
 if [ "$RESULT" = "404" ]; then
-  fatal "Subdomain not found."
+  fatal "Subdomain or token not found."
 fi

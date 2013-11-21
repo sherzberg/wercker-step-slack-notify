@@ -16,16 +16,16 @@ build:
     # - script:
     #     name: Subdomain does not exist
     #     code: |
-    #       ./tests/test_invalid_subdomain.sh $CORRECT_SLACK_TOKEN
+    #       source ./tests/test_invalid_subdomain.sh $CORRECT_SLACK_TOKEN
     # - script:
     #     name: Invalid token
     #     code: |
-    #       ./tests/test_invalid_token.sh $CORRECT_SLACK_TOKEN
+    #       source ./tests/test_invalid_token.sh $CORRECT_SLACK_TOKEN
     # - script:
     #     name: Channel does not exist
     #     code: |
-    #       ./tests/test_channel_does_not_exist.sh
+    #       source ./tests/test_channel_does_not_exist.sh
     # - script:
     #     name: Channel starts with hash
     #     code: |
-    #       ./tests/test_channel_starts_with_hash.sh
+    #       source ./tests/test_channel_starts_with_hash.sh

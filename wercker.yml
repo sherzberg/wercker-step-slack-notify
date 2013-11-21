@@ -22,7 +22,7 @@ build:
     - script:
         name: Channel does not exist
         code: |
-          ./tests/test_channel_does_no_exist.sh
+          ./tests/test_channel_does_not_exist.sh
 
     - script:
         name: Channel starts with hash

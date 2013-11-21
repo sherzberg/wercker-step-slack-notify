@@ -15,7 +15,7 @@ error 'Please specify a channel'
   exit 1
 fi
 
-if [[ ! $WERCKER_SLACK_NOTIFY_CHANNEL == \#* ]]; then
+if [[ $WERCKER_SLACK_NOTIFY_CHANNEL == \#* ]]; then
 error "Please specify the channel without the '#'"
   exit 1
 fi

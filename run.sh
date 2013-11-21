@@ -55,7 +55,7 @@ RESULT=`curl -s -d "payload=$json" "https://$WERCKER_SLACK_NOTIFY_SUBDOMAIN.slac
 
 if [ "$RESULT" = "500" ]; then
   if grep -Fqx "No token" $WERCKER_STEP_TEMP/result.txt; then
-    fatal "Specified token is invalid."
+    fatal "No token is specified."
   fi
 
   if grep -Fqx "No hooks" $WERCKER_STEP_TEMP/result.txt; then

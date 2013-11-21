@@ -1,5 +1,4 @@
 function fatal() {
   echo "fatal called with : $1"
-  exit
+  exit 1
 }
-

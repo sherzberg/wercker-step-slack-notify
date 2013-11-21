@@ -7,6 +7,7 @@ function fatal() {
   if [ "$FATAL_MESSAGE" = "$1" ]; then
     exit 0
   else
+    echo "Fatal error: called with $1 expected $FATAL_MESSAGE"
     exit 1
   fi
 }

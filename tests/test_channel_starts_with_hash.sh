@@ -8,10 +8,10 @@ export WERCKER_SLACK_NOTIFY_TOKEN="$1"
 export WERCKER_SLACK_NOTIFY_CHANNEL="#product"
 export WERCKER_STEP_TEMP=/tmp
 export FATAL_MESSAGE="Please specify token property"
-export FATAL_CALLED=0
+export FATAL_CALLED="false"
 source run.sh
 
-if [ $FATAL_CALLED -eq 0 ]; then
+if [ "$FATAL_CALLED" = "false" ]; then
+    echo "Error: fatal is not called."
     exit 1
 fi
-

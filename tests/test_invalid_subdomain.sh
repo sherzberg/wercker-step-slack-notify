@@ -1,7 +1,6 @@
 #!/bin/bash
 
 source tests/helper.sh
-set -e
 
 export WERCKER_SLACK_NOTIFY_SUBDOMAIN="werckerz"
 export WERCKER_SLACK_NOTIFY_TOKEN=$1

@@ -27,4 +27,4 @@ build:
     - script:
         name: Channel starts with hash
         code: |
-          ./tests/tests_channel_starts_with_hash.sh
+          ./tests/test_channel_starts_with_hash.sh

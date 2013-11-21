@@ -3,10 +3,46 @@ build:
   steps:
     - validate-wercker-step
     - script:
-        name: Run the command once
+        name: Succesful notify
         code: |
           source ./tests/helper.sh
           export WERCKER_SLACK_NOTIFY_SUBDOMAIN="wercker"
           export WERCKER_SLACK_NOTIFY_TOKEN=$CORRECT_SLACK_TOKEN
           export WERCKER_SLACK_NOTIFY_CHANNEL="product"
+          source ./run.sh
+
+    - script:
+        name: Subdomain does not exist
+        code: |
+          source ./tests/helper.sh
+          export WERCKER_SLACK_NOTIFY_SUBDOMAIN="werckerz"
+          export WERCKER_SLACK_NOTIFY_TOKEN=$CORRECT_SLACK_TOKEN
+          export WERCKER_SLACK_NOTIFY_CHANNEL="product"
+          source ./run.sh
+
+    - script:
+        name: Invalid token
+        code: |
+          source ./tests/helper.sh
+          export WERCKER_SLACK_NOTIFY_SUBDOMAIN="wercker"
+          export WERCKER_SLACK_NOTIFY_TOKEN="$CORRECT_SLACK_TOKENz"
+          export WERCKER_SLACK_NOTIFY_CHANNEL="product"
+          source ./run.sh
+
+    - script:
+        name: Channel does not exist
+        code: |
+          source ./tests/helper.sh
+          export WERCKER_SLACK_NOTIFY_SUBDOMAIN="wercker"
+          export WERCKER_SLACK_NOTIFY_TOKEN="$CORRECT_SLACK_TOKEN"
+          export WERCKER_SLACK_NOTIFY_CHANNEL="productz"
+          source ./run.sh
+
+    - script:
+        name: Channel starts with hash
+        code: |
+          source ./tests/helper.sh
+          export WERCKER_SLACK_NOTIFY_SUBDOMAIN="wercker"
+          export WERCKER_SLACK_NOTIFY_TOKEN="$CORRECT_SLACK_TOKEN"
+          export WERCKER_SLACK_NOTIFY_CHANNEL="#product"
           source ./run.sh

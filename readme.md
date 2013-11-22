@@ -7,9 +7,20 @@ Send a message to a Slack Channel
 ### required
 
 * `token` - Your Slack token.
-* `channel` - The channel name of the Slack Channel
-* `subdomain` - The Campfire subdomain.
+* `channel` - The channel name of the Slack Channel (without the #).
+* `subdomain` - The slack subdomain.
 
+You can create a slack token by going to the account page on your slack domain:
+`<your-subdomain>.slack.com/services` and click 'add New Integration' and select
+'incoming webhooks'. Copy your token (as can be found in the example curl
+command) and don't forget to click 'Add Integration'.
+
+This token can be used directly in the wercker.yml (not
+recommended) or better: as an environment variable. You can add environment
+variables to wercker, by going to the settings tab of your application.
+In the `pipeline` section you can add environment variables. You can use
+those environment variables in the wercker.yml just as you would normally
+in a shell script (with a dollar sign in front of it).
 
 Example
 --------
@@ -19,7 +30,7 @@ Add SLACK_TOKEN as deploy target or application environment variable.
 
     build:
         after-steps:
-            - slack-notify:
+            - sherzberg/slack-notify:
                 subdomain: slacksubdomain
                 token: $SLACK_TOKEN
                 channel: general
@@ -46,3 +57,10 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+# Changelog
+
+## 0.0.4
+- updated documentation
+- check for redundant hash in channel argument
+- tests added

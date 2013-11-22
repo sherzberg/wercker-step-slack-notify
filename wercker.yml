@@ -2,3 +2,30 @@ box: wercker/default
 build:
   steps:
     - validate-wercker-step
+    # # The tests below need a valid slack token exposed as environment varialbe
+    # # CORRECT_SLACK_TOKEN
+    # - script:
+    #     name: test: Succesful notify
+    #     code: |
+    #       source ./tests/helper.sh
+    #       export WERCKER_SLACK_NOTIFY_SUBDOMAIN="wercker"
+    #       export WERCKER_SLACK_NOTIFY_TOKEN=$CORRECT_SLACK_TOKEN
+    #       export WERCKER_SLACK_NOTIFY_CHANNEL="product"
+    #       source ./run.sh
+
+    # - script:
+    #     name: test: Subdomain does not exist
+    #     code: |
+    #       bash ./tests/test_invalid_subdomain.sh $CORRECT_SLACK_TOKEN
+    # - script:
+    #     name: test: Invalid token
+    #     code: |
+    #       bash ./tests/test_invalid_token.sh $CORRECT_SLACK_TOKEN
+    # - script:
+    #     name: test: Channel does not exist
+    #     code: |
+    #       bash ./tests/test_channel_does_not_exist.sh $CORRECT_SLACK_TOKEN
+    # - script:
+    #     name: test: Channel starts with hash
+    #     code: |
+    #       bash ./tests/test_channel_starts_with_hash.sh $CORRECT_SLACK_TOKEN

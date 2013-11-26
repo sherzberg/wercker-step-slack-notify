@@ -2,7 +2,7 @@
 
 # slack-notify
 
-Send a message to a Slack Channel
+Send a message to a [Slack Channel](https://slack.com/).
 
 ### required
 
@@ -19,13 +19,13 @@ This token can be used directly in the wercker.yml (not
 recommended) or better: as an environment variable. You can add environment
 variables to wercker, by going to the settings tab of your application.
 In the `pipeline` section you can add environment variables. You can use
-those environment variables in the wercker.yml just as you would normally
-in a shell script (with a dollar sign in front of it).
+those environment variables in the [wercker.yml](http://devcenter.wercker.com/articles/werckeryml/)
+just as you would normally in a shell script (with a dollar sign in front of it).
 
 Example
 --------
 
-Add SLACK_TOKEN as deploy target or application environment variable.
+Add `SLACK_TOKEN` as deploy target or application environment variable.
 
 
     build:
@@ -59,6 +59,9 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 # Changelog
+
+## 0.0.5
+- Minor change in documentation
 
 ## 0.0.4
 - updated documentation

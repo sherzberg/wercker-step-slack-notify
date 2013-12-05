@@ -64,6 +64,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 - Deploy url added
 - the build/deploy words are now used as links instead of showing the full
 url
+- Show the branc name in the deploy message
 
 ## 0.0.5
 - Minor change in documentation

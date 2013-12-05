@@ -60,6 +60,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 # Changelog
 
+## 0.0.6
+- Deploy url added
+- the build/deploy words are now used as links instead of showing the full
+url
+
 ## 0.0.5
 - Minor change in documentation
 

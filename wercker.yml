@@ -11,6 +11,7 @@ build:
           export WERCKER_SLACK_NOTIFY_SUBDOMAIN="wercker"
           export WERCKER_SLACK_NOTIFY_TOKEN=$CORRECT_SLACK_TOKEN
           export WERCKER_SLACK_NOTIFY_CHANNEL="product"
+          export WERCKER_DEPLOY_URL="http://wercker.com"
           export DEPLOY=true
           source ./run.sh
 

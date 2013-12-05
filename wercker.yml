@@ -5,7 +5,7 @@ build:
     # The tests below need a valid slack token exposed as environment varialbe
     # CORRECT_SLACK_TOKEN
     - script:
-        name: test: Succesful notify
+        name: "test: Successful notify"
         code: |
           source ./tests/helper.sh
           export WERCKER_SLACK_NOTIFY_SUBDOMAIN="wercker"

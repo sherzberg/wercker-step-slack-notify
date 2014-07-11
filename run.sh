@@ -1,5 +1,7 @@
 #!/bin/bash
 
+AVATAR=''
+USERNAME=''
 
 if [ ! -n "$WERCKER_SLACK_NOTIFY_SUBDOMAIN" ]; then
 # fatal causes the wercker interface to display the error without the need to
@@ -14,6 +16,19 @@ fi
 if [ ! -n "$WERCKER_SLACK_NOTIFY_CHANNEL" ]; then
   fatal 'Please specify a channel'
 fi
+
+if [ -n "$WERCKER_SLACK_NOTIFY_USERNAME" ]; then
+  USERNAME="\"username\":\"$WERCKER_SLACK_NOTIFY_USERNAME\","
+fi
+
+if [ -n "$WERCKER_SLACK_NOTIFY_ICON_EMOJI" ]; then
+  AVATAR="\"icon_emoji\":\"$WERCKER_SLACK_NOTIFY_ICON_EMOJI\","
+fi
+if [ -n "$WERCKER_SLACK_NOTIFY_ICON_URL" ]; then
+  AVATAR="\"icon_url\":\"$WERCKER_SLACK_NOTIFY_ICON_URL\","
+fi
+
+
 
 if [[ $WERCKER_SLACK_NOTIFY_CHANNEL == \#* ]]; then
   fatal "Please specify the channel without the '#'"
@@ -49,7 +64,7 @@ if [ "$WERCKER_SLACK_NOTIFY_ON" = "failed" ]; then
   fi
 fi
 
-json="{\"channel\": \"#$WERCKER_SLACK_NOTIFY_CHANNEL\", \"text\": \"$WERCKER_SLACK_NOTIFY_MESSAGE\"}"
+json="{\"channel\": \"#$WERCKER_SLACK_NOTIFY_CHANNEL\", $USERNAME $AVATAR \"text\": \"$WERCKER_SLACK_NOTIFY_MESSAGE\"}"
 
 RESULT=`curl -s -d "payload=$json" "https://$WERCKER_SLACK_NOTIFY_SUBDOMAIN.slack.com/services/hooks/incoming-webhook?token=$WERCKER_SLACK_NOTIFY_TOKEN" --output $WERCKER_STEP_TEMP/result.txt -w "%{http_code}"`
 

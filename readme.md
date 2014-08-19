@@ -9,6 +9,8 @@ Send a message to a [Slack Channel](https://slack.com/).
 * `token` - Your Slack token.
 * `channel` - The channel name of the Slack Channel (without the #).
 * `subdomain` - The slack subdomain.
+* `username` - The bot username.
+* `icon_url` | `icon_emoji` - The icon to use for this bot.
 
 You can create a slack token by going to the account page on your slack domain:
 `<your-subdomain>.slack.com/services` and click 'add New Integration' and select
@@ -34,6 +36,8 @@ Add `SLACK_TOKEN` as deploy target or application environment variable.
                 subdomain: slacksubdomain
                 token: $SLACK_TOKEN
                 channel: general
+                username: wercker
+                avatar_url: https://avatars3.githubusercontent.com/u/1695193?s=140
 
 # License
 

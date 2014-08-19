@@ -37,7 +37,7 @@ Add `SLACK_TOKEN` as deploy target or application environment variable.
                 token: $SLACK_TOKEN
                 channel: general
                 username: wercker
-                avatar_url: https://avatars3.githubusercontent.com/u/1695193?s=140
+                icon_url: https://avatars3.githubusercontent.com/u/1695193?s=140
 
 # License
 

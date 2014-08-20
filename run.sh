@@ -6,15 +6,18 @@ USERNAME=''
 if [ ! -n "$WERCKER_SLACK_NOTIFY_SUBDOMAIN" ]; then
 # fatal causes the wercker interface to display the error without the need to
 # expand the step
-  fatal 'Please specify the subdomain property'
+  error 'Please specify the subdomain property'
+  exit 1
 fi
 
 if [ ! -n "$WERCKER_SLACK_NOTIFY_TOKEN" ]; then
-  fatal 'Please specify token property'
+  error 'Please specify token property'
+  exit 1
 fi
 
 if [ ! -n "$WERCKER_SLACK_NOTIFY_CHANNEL" ]; then
-  fatal 'Please specify a channel'
+  error 'Please specify a channel'
+  exit 1
 fi
 
 if [ -n "$WERCKER_SLACK_NOTIFY_USERNAME" ]; then
@@ -31,7 +34,7 @@ fi
 
 
 if [[ $WERCKER_SLACK_NOTIFY_CHANNEL == \#* ]]; then
-  fatal "Please specify the channel without the '#'"
+  error "Please specify the channel without the '#'"
 fi
 
 if [ ! -n "$WERCKER_SLACK_NOTIFY_FAILED_MESSAGE" ]; then
@@ -90,5 +93,6 @@ if [ "$RESULT" = "500" ]; then
 fi
 
 if [ "$RESULT" = "404" ]; then
-  fatal "Subdomain or token not found."
+  error "Subdomain or token not found."
+  exit 1
 fi

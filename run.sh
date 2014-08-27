@@ -58,7 +58,7 @@ fi
 
 BUILD_OR_DEPLOY="Build"
 if [ -n "$DEPLOY" ]; then
-  BUILD_OR_DEPLOY="Deploy"
+  BUILD_OR_DEPLOY="Deploy ($WERCKER_DEPLOYTARGET_NAME)"
 fi
 
 BUILD_COLOR=\"danger\"

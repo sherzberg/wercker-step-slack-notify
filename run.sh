@@ -62,7 +62,7 @@ fi
 
 BUILD_COLOR=\"danger\"
 BUILD_STATUS_ATTACHMENT="{ \"title\": \"$BUILD_OR_DEPLOY failed\", \"value\": \"<$WERCKER_STATUS_URL|$WERCKER_GIT_COMMIT_MESSAGE>\", \"short\": true }"
-if [ "$WERCKER_RESULT" = "passed" ]; then
+if [ "$WERCKER_RESULT" == "passed" ]; then
   BUILD_COLOR=\"good\"
   BUILD_STATUS_ATTACHMENT="{ \"title\": \"$BUILD_OR_DEPLOY succeeded\", \"value\": \"<$WERCKER_STATUS_URL|$WERCKER_GIT_COMMIT_MESSAGE>\", \"short\": true }"
 fi
@@ -71,8 +71,8 @@ BUILD_COMMITTER_ATTACHMENT="{ \"title\": \"Committer\", \"value\": \"$WERCKER_ST
 BUILD_BRANCH_ATTACHMENT="{ \"title\": \"Branch\", \"value\": \"$WERCKER_GIT_BRANCH\", \"short\": true }"
 BUILD_PROJECT_ATTACHMENT="{ \"title\": \"Project\", \"value\": \"$WERCKER_APPLICATION_NAME\", \"short\": true }"
 
-if [ "$WERCKER_SLACK_NOTIFY_ON" = "failed" ]; then
-  if [ "$WERCKER_RESULT" = "passed" ]; then
+if [ "$WERCKER_SLACK_NOTIFY_ON" == "failed" ]; then
+  if [ "$WERCKER_RESULT" == "passed" ]; then
     echo "Skipping.."
     return 0
   fi

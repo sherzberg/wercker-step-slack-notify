@@ -2,7 +2,6 @@
 
 AVATAR=''
 USERNAME=''
-set -v
 
 if [ ! -n "$WERCKER_SLACK_NOTIFY_SUBDOMAIN" ]; then
 # fatal causes the wercker interface to display the error without the need to

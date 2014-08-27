@@ -3,12 +3,6 @@
 AVATAR=''
 USERNAME=''
 
-WERCKER_SLACK_NOTIFY_SUBDOMAIN="usermind"
-WERCKER_SLACK_NOTIFY_TOKEN="xdLmVvQoOXGsdcfm7nYCqiAL"
-WERCKER_SLACK_NOTIFY_CHANNEL="test-slack"
-WERCKER_SLACK_NOTIFY_USERNAME="wercker"
-WERCKER_STATUS_URL="http://google.com"
-
 if [ ! -n "$WERCKER_SLACK_NOTIFY_SUBDOMAIN" ]; then
 # fatal causes the wercker interface to display the error without the need to
 # expand the step
@@ -44,16 +38,11 @@ fi
 pushd $WERCKER_SOURCE_DIR
 WERCKER_GIT_COMMIT_MESSAGE=$(git log -1 --pretty='%s')
 popd
-WERCKER_GIT_COMMIT_MESSAGE="Grape nuts - not grapes, not nuts"
 
 WERCKER_STATUS_URL=$WERCKER_BUILD_URL
 if [ -n "$DEPLOY" ]; then
     WERCKER_STATUS_URL=$WERCKER_DEPLOY_URL
 fi
-WERCKER_STATUS_URL="http://google.com"
-WERCKER_APPLICATION_NAME="grapenuts"
-WERCKER_STARTED_BY="emaland"
-WERCKER_GIT_BRANCH="bananas"
 
 BUILD_OR_DEPLOY="Build"
 if [ -n "$DEPLOY" ]; then

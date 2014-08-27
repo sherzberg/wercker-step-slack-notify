@@ -31,34 +31,34 @@ if [ -n "$WERCKER_SLACK_NOTIFY_ICON_URL" ]; then
   AVATAR="\"icon_url\":\"$WERCKER_SLACK_NOTIFY_ICON_URL\","
 fi
 
-
-
 if [[ $WERCKER_SLACK_NOTIFY_CHANNEL == \#* ]]; then
   error "Please specify the channel without the '#'"
 fi
 
-if [ ! -n "$WERCKER_SLACK_NOTIFY_FAILED_MESSAGE" ]; then
-  if [ ! -n "$DEPLOY" ]; then
-    export WERCKER_SLACK_NOTIFY_FAILED_MESSAGE="$WERCKER_APPLICATION_OWNER_NAME/$WERCKER_APPLICATION_NAME: <$WERCKER_BUILD_URL|build> of $WERCKER_GIT_BRANCH by $WERCKER_STARTED_BY failed."
-  else
-    export WERCKER_SLACK_NOTIFY_FAILED_MESSAGE="$WERCKER_APPLICATION_OWNER_NAME/$WERCKER_APPLICATION_NAME: <$WERCKER_DEPLOY_URL|deploy> of $WERCKER_GIT_BRANCH to $WERCKER_DEPLOYTARGET_NAME by $WERCKER_STARTED_BY failed."
-  fi
+pushd $WERCKER_SOURCE_DIR
+WERCKER_GIT_COMMIT_MESSAGE=$(git log -1 --pretty='%s')
+popd
+
+WERCKER_STATUS_URL=$WERCKER_BUILD_URL
+if [ -n "$DEPLOY" ]; then
+    WERCKER_STATUS_URL=$WERCKER_DEPLOY_URL
 fi
 
-if [ ! -n "$WERCKER_SLACK_NOTIFY_PASSED_MESSAGE" ]; then
-  if [ ! -n "$DEPLOY" ]; then
-    export WERCKER_SLACK_NOTIFY_PASSED_MESSAGE="$WERCKER_APPLICATION_OWNER_NAME/$WERCKER_APPLICATION_NAME: <$WERCKER_BUILD_URL|build> of $WERCKER_GIT_BRANCH by $WERCKER_STARTED_BY passed."
-  else
-    export WERCKER_SLACK_NOTIFY_PASSED_MESSAGE="$WERCKER_APPLICATION_OWNER_NAME/$WERCKER_APPLICATION_NAME: <$WERCKER_DEPLOY_URL|deploy of $WERCKER_GIT_BRANCH> to $WERCKER_DEPLOYTARGET_NAME by $WERCKER_STARTED_BY passed."
-  fi
+BUILD_OR_DEPLOY="Build"
+if [ -n "$DEPLOY" ]; then
+  BUILD_OR_DEPLOY="Deploy"
 fi
 
+BUILD_COLOR=\"danger\"
+BUILD_STATUS_ATTACHMENT="{ \"title\": \"$BUILD_OR_DEPLOY failed\", \"value\": \"<$WERCKER_STATUS_URL|$WERCKER_GIT_COMMIT_MESSAGE>\", \"short\": true }"
 if [ "$WERCKER_RESULT" = "passed" ]; then
-  export WERCKER_SLACK_NOTIFY_MESSAGE="$WERCKER_SLACK_NOTIFY_PASSED_MESSAGE"
-else
-  export WERCKER_SLACK_NOTIFY_MESSAGE="$WERCKER_SLACK_NOTIFY_FAILED_MESSAGE"
+  BUILD_COLOR=\"good\"
+  BUILD_STATUS_ATTACHMENT="{ \"title\": \"$BUILD_OR_DEPLOY succeeded\", \"value\": $WERCKER_GIT_COMMIT_MESSAGE, \"short\": true }"
 fi
 
+BUILD_COMMITTER_ATTACHMENT="{ \"title\": \"Committer\", \"value\": \"$WERCKER_STARTED_BY\", \"short\": true }"
+BUILD_BRANCH_ATTACHMENT="{ \"title\": \"Branch\", \"value\": \"$WERCKER_GIT_BRANCH\", \"short\": true }"
+BUILD_PROJECT_ATTACHMENT="{ \"title\": \"Project\", \"value\": \"$WERCKER_APPLICATION_NAME\", \"short\": true }"
 
 if [ "$WERCKER_SLACK_NOTIFY_ON" = "failed" ]; then
   if [ "$WERCKER_RESULT" = "passed" ]; then
@@ -67,9 +67,11 @@ if [ "$WERCKER_SLACK_NOTIFY_ON" = "failed" ]; then
   fi
 fi
 
-json="{\"channel\": \"#$WERCKER_SLACK_NOTIFY_CHANNEL\", $USERNAME $AVATAR \"text\": \"$WERCKER_SLACK_NOTIFY_MESSAGE\"}"
+ATTACHMENTS="\"attachments\": [ { \"fallback\": \"build status\", \"color\": $BUILD_COLOR, \"fields\": [ $BUILD_STATUS_ATTACHMENT, $BUILD_COMMITTER_ATTACHMENT, $BUILD_BRANCH_ATTACHMENT, $BUILD_PROJECT_ATTACHMENT ] } ]"
 
-RESULT=`curl -s -d "payload=$json" "https://$WERCKER_SLACK_NOTIFY_SUBDOMAIN.slack.com/services/hooks/incoming-webhook?token=$WERCKER_SLACK_NOTIFY_TOKEN" --output $WERCKER_STEP_TEMP/result.txt -w "%{http_code}"`
+json="{\"channel\": \"#$WERCKER_SLACK_NOTIFY_CHANNEL\", $USERNAME $AVATAR \"text\": \"$WERCKER_SLACK_NOTIFY_MESSAGE\", $ATTACHMENTS }"
+
+RESULT=$(curl -s -d "payload=$json" "https://$WERCKER_SLACK_NOTIFY_SUBDOMAIN.slack.com/services/hooks/incoming-webhook?token=$WERCKER_SLACK_NOTIFY_TOKEN")
 
 if [ "$RESULT" = "500" ]; then
   if grep -Fqx "No token" $WERCKER_STEP_TEMP/result.txt; then

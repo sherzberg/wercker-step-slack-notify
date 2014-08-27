@@ -3,6 +3,18 @@
 AVATAR=''
 USERNAME=''
 
+if [ -n "$DEPLOY" ]; then
+  if [ -n "$ROBBIE_URL" ]; then
+    if [ -n "$ENVIRONMENT" ]; then
+      # Check if this environment is enabled; if not, exit gracefully
+      if [ "$(curl $ROBBIE_URL/$ENVIRONMENT 2>/dev/null)" != "on" ]; then
+        echo "$ENVIRONMENT disabled; not sending notification"
+        exit 0
+      fi
+    fi
+  fi
+fi
+
 if [ ! -n "$WERCKER_SLACK_NOTIFY_SUBDOMAIN" ]; then
 # fatal causes the wercker interface to display the error without the need to
 # expand the step

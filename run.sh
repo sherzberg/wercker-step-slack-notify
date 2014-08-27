@@ -64,7 +64,7 @@ BUILD_COLOR=\"danger\"
 BUILD_STATUS_ATTACHMENT="{ \"title\": \"$BUILD_OR_DEPLOY failed\", \"value\": \"<$WERCKER_STATUS_URL|$WERCKER_GIT_COMMIT_MESSAGE>\", \"short\": true }"
 if [ "$WERCKER_RESULT" = "passed" ]; then
   BUILD_COLOR=\"good\"
-  BUILD_STATUS_ATTACHMENT="{ \"title\": \"$BUILD_OR_DEPLOY succeeded\", \"value\": $WERCKER_GIT_COMMIT_MESSAGE, \"short\": true }"
+  BUILD_STATUS_ATTACHMENT="{ \"title\": \"$BUILD_OR_DEPLOY succeeded\", \"value\": \"<$WERCKER_STATUS_URL|$WERCKER_GIT_COMMIT_MESSAGE>\", \"short\": true }"
 fi
 
 BUILD_COMMITTER_ATTACHMENT="{ \"title\": \"Committer\", \"value\": \"$WERCKER_STARTED_BY\", \"short\": true }"

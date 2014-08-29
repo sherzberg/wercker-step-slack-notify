@@ -3,18 +3,6 @@
 AVATAR=''
 USERNAME=''
 
-if [ -n "$DEPLOY" ]; then
-  if [ -n "$ROBBIE_URL" ]; then
-    if [ -n "$ENVIRONMENT" ]; then
-      # Check if this environment is enabled; if not, exit gracefully
-      if [ "$(curl $ROBBIE_URL/$ENVIRONMENT 2>/dev/null)" != "on" ]; then
-        echo "$ENVIRONMENT disabled; not sending notification"
-        exit 0
-      fi
-    fi
-  fi
-fi
-
 if [ ! -n "$WERCKER_SLACK_NOTIFY_SUBDOMAIN" ]; then
 # fatal causes the wercker interface to display the error without the need to
 # expand the step
@@ -84,9 +72,6 @@ ATTACHMENTS="\"attachments\": [ { \"fallback\": \"build status\", \"color\": $BU
 json="{\"channel\": \"#$WERCKER_SLACK_NOTIFY_CHANNEL\", $USERNAME $AVATAR \"text\": \"$WERCKER_SLACK_NOTIFY_MESSAGE\", $ATTACHMENTS }"
 
 RESULT=$(curl -s -d "payload=$json" "https://$WERCKER_SLACK_NOTIFY_SUBDOMAIN.slack.com/services/hooks/incoming-webhook?token=$WERCKER_SLACK_NOTIFY_TOKEN" --output $WERCKER_STEP_TEMP/result.txt -w "%{http_code}")
-
-echo "PAYLOAD: " $json
-echo "RESULT: " $(cat $WERCKER_STEP_TEMP/result.txt)
 
 if [ "$RESULT" = "500" ]; then
   if grep -Fqx "No token" $WERCKER_STEP_TEMP/result.txt; then

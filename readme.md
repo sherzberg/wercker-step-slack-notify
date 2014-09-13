@@ -9,8 +9,6 @@ Send a message to a [Slack Channel](https://slack.com/).
 * `token` - Your Slack token.
 * `channel` - The channel name of the Slack Channel (without the #).
 * `subdomain` - The slack subdomain.
-* `username` - The bot username.
-* `icon_url` | `icon_emoji` - The icon to use for this bot.
 
 You can create a slack token by going to the account page on your slack domain:
 `<your-subdomain>.slack.com/services` and click 'add New Integration' and select
@@ -24,6 +22,11 @@ In the `pipeline` section you can add environment variables. You can use
 those environment variables in the [wercker.yml](http://devcenter.wercker.com/articles/werckeryml/)
 just as you would normally in a shell script (with a dollar sign in front of it).
 
+### optional
+
+* `username` - The bot username.
+* `icon_url` | `icon_emoji` - The icon to use for this bot.
+
 Example
 --------
 
@@ -35,7 +38,7 @@ Add `SLACK_TOKEN` as deploy target or application environment variable.
             - sherzberg/slack-notify:
                 subdomain: slacksubdomain
                 token: $SLACK_TOKEN
-                channel: general
+                channel: "#general"
                 username: wercker
                 icon_url: https://avatars3.githubusercontent.com/u/1695193?s=140
 

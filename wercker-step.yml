@@ -23,3 +23,9 @@ properties:
   icon_emoji:
     type: string
     required: false
+  passed_message:
+    type: string
+    required: false
+  failed_message:
+    type: string
+    required: false

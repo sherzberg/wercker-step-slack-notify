@@ -26,6 +26,8 @@ just as you would normally in a shell script (with a dollar sign in front of it)
 
 * `username` - The bot username.
 * `icon_url` | `icon_emoji` - The icon to use for this bot.
+* `passed_message` - The message which will be shown on a passed build or deploy.
+* `failed_message` - The message which will be shown on a failed build or deploy.
 
 Example
 --------
@@ -66,6 +68,11 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 # Changelog
+
+## 0.0.11
+- added custom passed/failed message
+- change how to specify the channel(Ex. "#room", "@someone")
+- change default icon and username
 
 ## 0.0.8
 - added custom icon url, icon emoji, and username properties

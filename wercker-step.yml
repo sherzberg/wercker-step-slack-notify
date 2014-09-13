@@ -1,5 +1,5 @@
 name: slack-notify
-version: 0.0.8
+version: 0.0.9
 description: Sends notifications to Slack
 keywords:
   - notification

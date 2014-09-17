@@ -1,7 +1,7 @@
 #!/bin/bash
 
-AVATAR=''
-USERNAME=''
+USERNAME="\"username\":\"Wercker\","
+AVATAR="\"icon_url\":\"https://avatars3.githubusercontent.com/u/1695193?s=140\","
 
 if [ ! -n "$WERCKER_SLACK_NOTIFY_SUBDOMAIN" ]; then
 # fatal causes the wercker interface to display the error without the need to
@@ -33,10 +33,6 @@ fi
 
 
 
-if [[ $WERCKER_SLACK_NOTIFY_CHANNEL == \#* ]]; then
-  error "Please specify the channel without the '#'"
-fi
-
 if [ ! -n "$WERCKER_SLACK_NOTIFY_FAILED_MESSAGE" ]; then
   if [ ! -n "$DEPLOY" ]; then
     export WERCKER_SLACK_NOTIFY_FAILED_MESSAGE="$WERCKER_APPLICATION_OWNER_NAME/$WERCKER_APPLICATION_NAME: <$WERCKER_BUILD_URL|build> of $WERCKER_GIT_BRANCH by $WERCKER_STARTED_BY failed."
@@ -67,7 +63,7 @@ if [ "$WERCKER_SLACK_NOTIFY_ON" = "failed" ]; then
   fi
 fi
 
-json="{\"channel\": \"#$WERCKER_SLACK_NOTIFY_CHANNEL\", $USERNAME $AVATAR \"text\": \"$WERCKER_SLACK_NOTIFY_MESSAGE\"}"
+json="{\"channel\": \"$WERCKER_SLACK_NOTIFY_CHANNEL\", $USERNAME $AVATAR \"text\": \"$WERCKER_SLACK_NOTIFY_MESSAGE\"}"
 
 RESULT=`curl -s -d "payload=$json" "https://$WERCKER_SLACK_NOTIFY_SUBDOMAIN.slack.com/services/hooks/incoming-webhook?token=$WERCKER_SLACK_NOTIFY_TOKEN" --output $WERCKER_STEP_TEMP/result.txt -w "%{http_code}"`
 

@@ -1,5 +1,5 @@
 name: slack-notify
-version: 0.0.8
+version: 0.0.11
 description: Sends notifications to Slack
 keywords:
   - notification
@@ -21,5 +21,11 @@ properties:
     type: string
     required: false
   icon_emoji:
+    type: string
+    required: false
+  passed_message:
+    type: string
+    required: false
+  failed_message:
     type: string
     required: false

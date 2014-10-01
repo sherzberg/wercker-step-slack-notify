@@ -48,10 +48,7 @@ if [[ $WERCKER_SLACK_NOTIFY_CHANNEL == \#* ]]; then
 fi
 
 pushd $WERCKER_SOURCE_DIR
-WERCKER_GIT_COMMIT_MESSAGE=$(git log -1 --pretty='%s' 2>&1)
-if [ ${WERCKER_GIT_COMMIT_MESSAGE:0:6} == "fatal:" ] ; then
-  WERCKER_GIT_COMMIT_MESSAGE="(null)"
-fi
+WERCKER_GIT_COMMIT_MESSAGE=$(git log -1 --pretty='%s')
 popd
 
 WERCKER_STATUS_URL=$WERCKER_BUILD_URL

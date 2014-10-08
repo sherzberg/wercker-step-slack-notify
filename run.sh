@@ -47,7 +47,7 @@ if [[ $WERCKER_SLACK_NOTIFY_CHANNEL == \#* ]]; then
   error "Please specify the channel without the '#'"
 fi
 
-pushd $WERCKER_SOURCE_DIR
+pushd $WERCKER_ROOT
 WERCKER_GIT_COMMIT_MESSAGE=$(git log -1 --pretty='%s')
 popd
 

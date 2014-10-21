@@ -7,7 +7,7 @@ Send a message to a [Slack Channel](https://slack.com/).
 ### required
 
 * `token` - Your Slack token.
-* `channel` - The channel name of the Slack Channel (without the #).
+* `channel` - The channel name of the Slack Channel (e.g. "#general").
 * `subdomain` - The slack subdomain.
 
 You can create a slack token by going to the account page on your slack domain:
